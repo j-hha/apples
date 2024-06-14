@@ -9,6 +9,6 @@ Charts as reusable web components - a practice project.
 </component-name>
 ```
 ### Available Components
-- <bar-chart>
+- `<bar-chart>`
 
 ## tbc ...
