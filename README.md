@@ -11,4 +11,8 @@ Charts as reusable web components - a practice project.
 ### Available Components
 - `<bar-chart>`
 
+## Development
+### commands
+- run webpack to build js bundle: `npx webpack`
 ## tbc ...
+

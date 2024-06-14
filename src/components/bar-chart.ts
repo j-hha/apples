@@ -1,6 +1,8 @@
 import { isElementInview } from "../helper/intersection-observer";
 import { StatsData } from "../helper/types";
 import { loadJSON } from "../helper/load-json";
+import { getHeight } from "../helper/calculate-sizes";
+import { getRange } from "../helper/calculate-sizes";
 
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
@@ -20,7 +22,7 @@ class BarChart extends HTMLElement {
 
     set data(data:Array<StatsData>) {
         this._data = data;
-        const container = this._shadowRoot.querySelector('.bar-chart__containter') as HTMLElement;
+        const container = this._shadowRoot.querySelector('.bar-chart__container') as HTMLElement;
         this.createBars(container, this.data)
     };
 
@@ -41,19 +43,36 @@ class BarChart extends HTMLElement {
     }
 
     createBars = (container:HTMLElement, data:Array<StatsData>):HTMLSpanElement => {
-        data.forEach((item:StatsData) => {
+        data.forEach((item:StatsData, index:number) => {
             const { name, value, unit } = item;
             const modifier = name.split(' ').join('-');
-            //create bar
+            
+            //create bar elements
+            const barWrapper = document.createElement('span');
+            const barLabel = document.createElement('span');
+            const hoverText = document.createElement('span');
             const bar = document.createElement('span');
+
+            //add classes
+            barWrapper.classList.add(`bar-chart__bar-wrapper`);
+            barLabel.classList.add(`bar-chart__bar-label`);
             bar.classList.add(`bar-chart__bar`, `bar-chart__bar--${modifier}`);
-            // create screen reader text
-            const srText = document.createElement('span');
-            srText.classList.add('sr-only','show-on-hover');
-            srText.textContent = `${name}: ${value} ${unit}`;
+            hoverText.classList.add('show-on-hover');
+
+            //add height
+            const maxNum = getRange(data);
+            const height = getHeight(maxNum, value, 300);
+            bar.style.height = height;
+
+            // create label & hover text
+            barLabel.textContent = `${name}`;
+            hoverText.textContent = `${value} ${unit}`;
+
             //assemble bar & screen reader text
-            bar.append(srText);
-            container.append(bar);
+            bar.append(hoverText);
+            barWrapper.append(bar);
+            barWrapper.append(barLabel);
+            container.append(barWrapper);
         });
 
         return container;
@@ -78,9 +97,9 @@ class BarChart extends HTMLElement {
 
     showError = (error:Error) => {
         const errorMessage:HTMLSpanElement = document.createElement('span');
-        errorMessage.classList.add('error');
+        errorMessage.classList.add('bar-chart__error');
         errorMessage.textContent = error.message;
-        const container = this._shadowRoot.querySelector('.bar-chart__containter') as HTMLElement;
+        const container = this._shadowRoot.querySelector('.bar-chart__container') as HTMLElement;
         container.append(errorMessage);
     }
 

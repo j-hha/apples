@@ -2,17 +2,22 @@
     "data": [
         {
             "name": "apples",
-            "value": 166346660701161,
+            "value": 1663500,
             "unit": "tons"
         },
         {
             "name": "bananas",
-            "value": 914535064,
+            "value": 914500,
             "unit": "tons"
         },
         {
             "name": "grapes",
-            "value": 427828055,
+            "value": 427800,
+            "unit": "tons"
+        },
+        {
+            "name": "strawberries",
+            "value": 327700,
             "unit": "tons"
         }
     ]
