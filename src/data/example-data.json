@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "name": "Fruit one",
+            "value": 1,
+            "unit": "kilo"
+        },
+        {
+            "name": "Fruit two",
+            "value": 2,
+            "unit": "kilo"
+        },
+        {
+            "name": "Fruit three",
+            "value": 3,
+            "unit": "kilo"
+        }
+    ]
+}

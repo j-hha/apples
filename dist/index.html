@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practice project: animated charts as reusable web components</title>
+  </head>
+  <body>
+    <template id="bar-chart" data-json='example-data'>
+        <figure class="bar-chart__figure">
+            <span class="bar-chart__containter"></span>
+            <figcaption class="bar-chart__caption">
+                <slot name="caption-text">
+                  <i>placeholder- add a screen reader friendly description</i>
+                </slot>
+            </figcaption>
+        </figure>
+    </template>
+    <bar-chart data-json='fruit-consumption'>
+        <span slot="caption-text">This bar chart shows the consumption in tons for the three most popular fruit varieties in Germany in the economic year 2022/2023.</span>
+    </bar-chart>
+    <bar-chart data-json='error'>
+        <span slot="caption-text">This should show an error message instead of a bar chart, as the json file name is incorrect.</span>
+    </bar-chart>
+    <script src="bundle.js"></script>
+  </body>
+</html>
