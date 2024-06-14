@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "name": "apples",
+            "value": 166346660701161,
+            "unit": "tons"
+        },
+        {
+            "name": "bananas",
+            "value": 914535064,
+            "unit": "tons"
+        },
+        {
+            "name": "grapes",
+            "value": 427828055,
+            "unit": "tons"
+        }
+    ]
+}
