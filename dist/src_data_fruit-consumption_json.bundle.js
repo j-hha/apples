@@ -15,7 +15,7 @@
   \*****************************************/
 /***/ ((module) => {
 
-eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"apples\",\"value\":1663500,\"unit\":\"tons\"},{\"name\":\"bananas\",\"value\":914500,\"unit\":\"tons\"},{\"name\":\"grapes\",\"value\":427800,\"unit\":\"tons\"},{\"name\":\"strawberries\",\"value\":327700,\"unit\":\"tons\"}]}');\n\n//# sourceURL=webpack://apples/./src/data/fruit-consumption.json?");
+eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"apples\",\"value\":1663500,\"unit\":\"tons\",\"color\":\"red\"},{\"name\":\"bananas\",\"value\":914500,\"unit\":\"tons\",\"color\":\"yellow\"},{\"name\":\"grapes\",\"value\":427800,\"unit\":\"tons\",\"color\":\"blue\"},{\"name\":\"strawberries\",\"value\":327700,\"unit\":\"tons\"}]}');\n\n//# sourceURL=webpack://apples/./src/data/fruit-consumption.json?");
 
 /***/ })
 

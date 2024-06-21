@@ -1,9 +1,8 @@
 import { isElementInview } from "../helper/intersection-observer";
 import { StatsData } from "../helper/types";
 import { loadJSON } from "../helper/load-json";
-import { getHeight } from "../helper/calculate-sizes";
-import { getRange } from "../helper/calculate-sizes";
-
+import { getHeight, getRange } from "../helper/calculate-sizes";
+import { getRandomColor } from "../helper/get-random-color"
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
     private _internals:ElementInternalsExtended;
@@ -40,14 +39,24 @@ class BarChart extends HTMLElement {
 
     getIsInView = ():boolean => {
         return this._internals.states.has('inview');
-    }
+    };
+
+    getColor = (name:string, color?:string):string => {
+        let hexColor = color;
+
+        if(typeof hexColor === 'undefined') {
+            hexColor = getRandomColor();
+        }
+
+        return `:host(bar-chart) > .bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper > .bar-chart__bar--${name} { background-color: ${hexColor}; } `;
+    };
 
     createBars = (container:HTMLElement, data:Array<StatsData>):HTMLSpanElement => {
         const maxNum = getRange(data);
         let style:string = '';
         const styleElement = document.createElement('style');
         data.forEach((item:StatsData, index:number) => {
-            const { name, value, unit } = item;
+            const { name, value, unit, color } = item;
             const modifier = name.split(' ').join('-');
             
             //create bar elements
@@ -78,8 +87,9 @@ class BarChart extends HTMLElement {
             bar.classList.add(`bar-chart__bar`, `bar-chart__bar--${modifier}`);
             hoverText.classList.add('bar-chart__bar-value');
 
-            //add height animation
+            //add styles
             style += this.addAnimationStyle(maxNum, value, name);
+            style += this.getColor(name, color);
 
             // create label & hover text
             barLabel.textContent = `${name}`;
@@ -122,8 +132,9 @@ class BarChart extends HTMLElement {
     addAnimationStyle = (maxNum:number, value:number, name:string):string => {
         let style:string = '';
         const height = getHeight(maxNum, value, 300);
-        style += `:host(bar-chart) > .bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper--${name} { height: ${height}; } `;
-        style += `:host(bar-chart:state(inview)) > .bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper > .bar-chart__bar--${name} { height: ${height}; } `;
+        const cssClasses = '.bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper'
+        style += `:host(bar-chart) > ${cssClasses}--${name} { height: ${height}; } `;
+        style += `:host(bar-chart:state(inview)) > ${cssClasses} > .bar-chart__bar--${name} { height: ${height}; } `;
         return style;
     }
 

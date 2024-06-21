@@ -3,17 +3,20 @@
         {
             "name": "apples",
             "value": 1663500,
-            "unit": "tons"
+            "unit": "tons",
+            "color": "red"
         },
         {
             "name": "bananas",
             "value": 914500,
-            "unit": "tons"
+            "unit": "tons",
+            "color": "yellow"
         },
         {
             "name": "grapes",
             "value": 427800,
-            "unit": "tons"
+            "unit": "tons",
+            "color": "blue"
         },
         {
             "name": "strawberries",
