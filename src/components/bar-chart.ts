@@ -43,6 +43,9 @@ class BarChart extends HTMLElement {
     }
 
     createBars = (container:HTMLElement, data:Array<StatsData>):HTMLSpanElement => {
+        const maxNum = getRange(data);
+        let style:string = '';
+        const styleElement = document.createElement('style');
         data.forEach((item:StatsData, index:number) => {
             const { name, value, unit } = item;
             const modifier = name.split(' ').join('-');
@@ -53,42 +56,75 @@ class BarChart extends HTMLElement {
             const hoverText = document.createElement('span');
             const bar = document.createElement('span');
 
+            //add eventListener
+            bar.addEventListener('click', (event:MouseEvent) => {
+                this.showLabel(event.target as HTMLElement)
+            });
+
+            bar.addEventListener('keyup', (event:KeyboardEvent) => {
+                if (event.type === 'keyup' && (event.code === 'Enter' || event.code === 'Space')) {
+                    this.showLabel(event.target as HTMLElement)
+                }
+            });
+
+            //add tabIndex and aria-live settings
+            bar.tabIndex = 0;
+            hoverText.setAttribute('aria-live', 'polite')
+            barWrapper.setAttribute('aria-atomic', 'true')
+
             //add classes
-            barWrapper.classList.add(`bar-chart__bar-wrapper`);
+            barWrapper.classList.add(`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`);
             barLabel.classList.add(`bar-chart__bar-label`);
             bar.classList.add(`bar-chart__bar`, `bar-chart__bar--${modifier}`);
-            hoverText.classList.add('show-on-hover');
+            hoverText.classList.add('bar-chart__bar-value');
 
-            //add height
-            const maxNum = getRange(data);
-            const height = getHeight(maxNum, value, 300);
-            bar.style.height = height;
+            //add height animation
+            style += this.addAnimationStyle(maxNum, value, name);
 
             // create label & hover text
             barLabel.textContent = `${name}`;
             hoverText.textContent = `${value} ${unit}`;
 
             //assemble bar & screen reader text
+            barWrapper.append(barLabel);
             bar.append(hoverText);
             barWrapper.append(bar);
-            barWrapper.append(barLabel);
             container.append(barWrapper);
         });
 
+        styleElement.textContent = style;
+        this.shadowRoot.prepend(styleElement);
         return container;
     }
 
-    addHeights = (data:Array<StatsData>) => {
-        let style:string;
-        data.forEach((item:StatsData) => {
-            const { name, value } = item;
-            style += `:host(consumption-animation:state(inview)) > .animation > .animation__chart-bar--${name} {
-                height: ${value.toString()}px;} `;
+    showLabel = (target:HTMLElement) => {
+        const baseClassValue = 'bar-chart__bar-value';
+        const activeClass = `${baseClassValue}--active`;
+        const barChildren = Array.from(target.children);
+        const label = barChildren.find((element:HTMLElement) => {
+            if(element.classList.contains(baseClassValue)) {
+                return element as HTMLElement;
+            }
         });
 
-        const styleElement = document.createElement('style');
-        styleElement.textContent = style;
-        this._clone.prepend(styleElement);
+        if (label.classList.contains(activeClass)) {
+            return;
+        }
+
+        const activeBar = this.shadowRoot.querySelector(`.${activeClass}`);
+        if(activeBar) {
+            activeBar.classList.remove(activeClass);
+        }
+        
+        label.classList.add(activeClass);
+    };
+
+    addAnimationStyle = (maxNum:number, value:number, name:string):string => {
+        let style:string = '';
+        const height = getHeight(maxNum, value, 300);
+        style += `:host(bar-chart) > .bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper--${name} { height: ${height}; } `;
+        style += `:host(bar-chart:state(inview)) > .bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper > .bar-chart__bar--${name} { height: ${height}; } `;
+        return style;
     }
 
     connectedCallback():void {

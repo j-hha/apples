@@ -1,7 +1,7 @@
 export const isElementInview = (target:Element, callback:Function) => {
     const options = {
         rootMargin: "0px",
-        threshold: .85,
+        threshold: .5,
     };
 
   const observerCallback = (entries:Array<IntersectionObserverEntry>, observer:IntersectionObserver) => {
