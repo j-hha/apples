@@ -15,7 +15,7 @@
   \************************************/
 /***/ ((module) => {
 
-eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"Fruit one\",\"value\":1,\"unit\":\"kilo\"},{\"name\":\"Fruit two\",\"value\":2,\"unit\":\"kilo\"},{\"name\":\"Fruit three\",\"value\":3,\"unit\":\"kilo\"}]}');\n\n//# sourceURL=webpack://apples/./src/data/example-data.json?");
+eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"Fruit one\",\"value\":1,\"unit\":\"kilo\",\"color\":\"#000\"},{\"name\":\"Fruit two\",\"value\":2,\"unit\":\"kilo\",\"color\":\"green\"},{\"name\":\"Fruit three\",\"value\":3,\"unit\":\"kilo\"}]}');\n\n//# sourceURL=webpack://apples/./src/data/example-data.json?");
 
 /***/ })
 

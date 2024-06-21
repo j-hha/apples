@@ -15,7 +15,7 @@
   \*****************************************/
 /***/ ((module) => {
 
-eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"apples\",\"value\":1663500,\"unit\":\"tons\",\"color\":\"red\"},{\"name\":\"bananas\",\"value\":914500,\"unit\":\"tons\",\"color\":\"yellow\"},{\"name\":\"grapes\",\"value\":427800,\"unit\":\"tons\",\"color\":\"blue\"},{\"name\":\"strawberries\",\"value\":327700,\"unit\":\"tons\"}]}');\n\n//# sourceURL=webpack://apples/./src/data/fruit-consumption.json?");
+eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"apples\",\"value\":1663500,\"unit\":\"tons\",\"color\":\"#e03a3e\"},{\"name\":\"bananas\",\"value\":914500,\"unit\":\"tons\",\"color\":\"#fdb827\"},{\"name\":\"grapes\",\"value\":427800,\"unit\":\"tons\",\"color\":\"#693D97\"},{\"name\":\"strawberries\",\"value\":327700,\"unit\":\"tons\",\"color\":\"#ff0080\"}]}');\n\n//# sourceURL=webpack://apples/./src/data/fruit-consumption.json?");
 
 /***/ })
 
