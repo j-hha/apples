@@ -1,7 +1,8 @@
 import { isElementInview } from "../helper/intersection-observer";
 import { StatsData } from "../helper/types";
 import { loadJSON } from "../helper/load-json";
-
+import { getHeight, getRange } from "../helper/calculate-sizes";
+import { getRandomColor } from "../helper/get-random-color"
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
     private _internals:ElementInternalsExtended;
@@ -20,7 +21,7 @@ class BarChart extends HTMLElement {
 
     set data(data:Array<StatsData>) {
         this._data = data;
-        const container = this._shadowRoot.querySelector('.bar-chart__containter') as HTMLElement;
+        const container = this._shadowRoot.querySelector('.bar-chart__container') as HTMLElement;
         this.createBars(container, this.data)
     };
 
@@ -38,38 +39,103 @@ class BarChart extends HTMLElement {
 
     getIsInView = ():boolean => {
         return this._internals.states.has('inview');
-    }
+    };
+
+    getColor = (name:string, color?:string):string => {
+        let hexColor = color;
+
+        if(typeof hexColor === 'undefined') {
+            hexColor = getRandomColor();
+        }
+
+        return `:host(bar-chart) > .bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper > .bar-chart__bar--${name} { background-color: ${hexColor}; } `;
+    };
 
     createBars = (container:HTMLElement, data:Array<StatsData>):HTMLSpanElement => {
-        data.forEach((item:StatsData) => {
-            const { name, value, unit } = item;
+        const maxNum = getRange(data);
+        let style:string = '';
+        const styleElement = document.createElement('style');
+        data.forEach((item:StatsData, index:number) => {
+            const { name, value, unit, color } = item;
             const modifier = name.split(' ').join('-');
-            //create bar
+            
+            //create bar elements
+            const barWrapper = document.createElement('span');
+            const barLabel = document.createElement('span');
+            const hoverText = document.createElement('span');
             const bar = document.createElement('span');
+
+            //add eventListener
+            bar.addEventListener('click', (event:MouseEvent) => {
+                this.showLabel(event.target as HTMLElement)
+            });
+
+            bar.addEventListener('keyup', (event:KeyboardEvent) => {
+                if (event.type === 'keyup' && (event.code === 'Enter' || event.code === 'Space')) {
+                    this.showLabel(event.target as HTMLElement)
+                }
+            });
+
+            //add tabIndex and aria-live settings
+            bar.tabIndex = 0;
+            hoverText.setAttribute('aria-live', 'polite')
+            barWrapper.setAttribute('aria-atomic', 'true')
+
+            //add classes
+            barWrapper.classList.add(`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`);
+            barLabel.classList.add(`bar-chart__bar-label`);
             bar.classList.add(`bar-chart__bar`, `bar-chart__bar--${modifier}`);
-            // create screen reader text
-            const srText = document.createElement('span');
-            srText.classList.add('sr-only','show-on-hover');
-            srText.textContent = `${name}: ${value} ${unit}`;
+            hoverText.classList.add('bar-chart__bar-value');
+
+            //add styles
+            style += this.addAnimationStyle(maxNum, value, name);
+            style += this.getColor(name, color);
+
+            // create label & hover text
+            barLabel.textContent = `${name}`;
+            hoverText.textContent = `${value} ${unit}`;
+
             //assemble bar & screen reader text
-            bar.append(srText);
-            container.append(bar);
+            barWrapper.append(barLabel);
+            bar.append(hoverText);
+            barWrapper.append(bar);
+            container.append(barWrapper);
         });
 
+        styleElement.textContent = style;
+        this.shadowRoot.prepend(styleElement);
         return container;
     }
 
-    addHeights = (data:Array<StatsData>) => {
-        let style:string;
-        data.forEach((item:StatsData) => {
-            const { name, value } = item;
-            style += `:host(consumption-animation:state(inview)) > .animation > .animation__chart-bar--${name} {
-                height: ${value.toString()}px;} `;
+    showLabel = (target:HTMLElement) => {
+        const baseClassValue = 'bar-chart__bar-value';
+        const activeClass = `${baseClassValue}--active`;
+        const barChildren = Array.from(target.children);
+        const label = barChildren.find((element:HTMLElement) => {
+            if(element.classList.contains(baseClassValue)) {
+                return element as HTMLElement;
+            }
         });
 
-        const styleElement = document.createElement('style');
-        styleElement.textContent = style;
-        this._clone.prepend(styleElement);
+        if (label.classList.contains(activeClass)) {
+            return;
+        }
+
+        const activeBar = this.shadowRoot.querySelector(`.${activeClass}`);
+        if(activeBar) {
+            activeBar.classList.remove(activeClass);
+        }
+        
+        label.classList.add(activeClass);
+    };
+
+    addAnimationStyle = (maxNum:number, value:number, name:string):string => {
+        let style:string = '';
+        const height = getHeight(maxNum, value, 300);
+        const cssClasses = '.bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper'
+        style += `:host(bar-chart) > ${cssClasses}--${name} { height: ${height}; } `;
+        style += `:host(bar-chart:state(inview)) > ${cssClasses} > .bar-chart__bar--${name} { height: ${height}; } `;
+        return style;
     }
 
     connectedCallback():void {
@@ -78,9 +144,9 @@ class BarChart extends HTMLElement {
 
     showError = (error:Error) => {
         const errorMessage:HTMLSpanElement = document.createElement('span');
-        errorMessage.classList.add('error');
+        errorMessage.classList.add('bar-chart__error');
         errorMessage.textContent = error.message;
-        const container = this._shadowRoot.querySelector('.bar-chart__containter') as HTMLElement;
+        const container = this._shadowRoot.querySelector('.bar-chart__container') as HTMLElement;
         container.append(errorMessage);
     }
 
