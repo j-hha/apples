@@ -3,12 +3,14 @@
         {
             "name": "Fruit one",
             "value": 1,
-            "unit": "kilo"
+            "unit": "kilo",
+            "color": "#000"
         },
         {
             "name": "Fruit two",
             "value": 2,
-            "unit": "kilo"
+            "unit": "kilo",
+            "color": "green"
         },
         {
             "name": "Fruit three",
