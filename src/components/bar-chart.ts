@@ -2,7 +2,8 @@ import { isElementInview } from "../helper/intersection-observer";
 import { StatsData } from "../helper/types";
 import { loadJSON } from "../helper/load-json";
 import { getHeight, getRange } from "../helper/calculate-sizes";
-import { getRandomColor } from "../helper/get-random-color"
+import { getRandomColor } from "../helper/get-random-color";
+import { createSpan } from "../helper/create-span";
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
     private _internals:ElementInternalsExtended;
@@ -60,10 +61,10 @@ class BarChart extends HTMLElement {
             const modifier = name.split(' ').join('-');
             
             //create bar elements
-            const barWrapper = document.createElement('span');
-            const barLabel = document.createElement('span');
-            const hoverText = document.createElement('span');
-            const bar = document.createElement('span');
+            const barWrapper:HTMLSpanElement = createSpan([`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`]);
+            const barLabel:HTMLSpanElement = createSpan([`bar-chart__bar-label`], name);
+            const hoverText:HTMLSpanElement = createSpan(['bar-chart__bar-value'], `${value} ${unit}`);
+            const bar:HTMLSpanElement = createSpan([`bar-chart__bar`, `bar-chart__bar--${modifier}`]);
 
             //add eventListener
             bar.addEventListener('click', (event:MouseEvent) => {
@@ -81,19 +82,9 @@ class BarChart extends HTMLElement {
             hoverText.setAttribute('aria-live', 'polite')
             barWrapper.setAttribute('aria-atomic', 'true')
 
-            //add classes
-            barWrapper.classList.add(`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`);
-            barLabel.classList.add(`bar-chart__bar-label`);
-            bar.classList.add(`bar-chart__bar`, `bar-chart__bar--${modifier}`);
-            hoverText.classList.add('bar-chart__bar-value');
-
             //add styles
             style += this.addAnimationStyle(maxNum, value, name);
             style += this.getColor(name, color);
-
-            // create label & hover text
-            barLabel.textContent = `${name}`;
-            hoverText.textContent = `${value} ${unit}`;
 
             //assemble bar & screen reader text
             barWrapper.append(barLabel);
@@ -143,9 +134,7 @@ class BarChart extends HTMLElement {
     }
 
     showError = (error:Error) => {
-        const errorMessage:HTMLSpanElement = document.createElement('span');
-        errorMessage.classList.add('bar-chart__error');
-        errorMessage.textContent = error.message;
+        const errorMessage:HTMLSpanElement = createSpan(['bar-chart__error'], error.message);
         const container = this._shadowRoot.querySelector('.bar-chart__container') as HTMLElement;
         container.append(errorMessage);
     }
