@@ -2,7 +2,9 @@ import { isElementInview } from "../helper/intersection-observer";
 import { StatsData } from "../helper/types";
 import { loadJSON } from "../helper/load-json";
 import { getHeight, getRange } from "../helper/calculate-sizes";
-import { getRandomColor } from "../helper/get-random-color"
+import { getRandomColor } from "../helper/get-random-color";
+import { createSpan } from "../helper/create-span";
+import { getReadableNumber } from "../helper/get-readable-number";
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
     private _internals:ElementInternalsExtended;
@@ -60,44 +62,23 @@ class BarChart extends HTMLElement {
             const modifier = name.split(' ').join('-');
             
             //create bar elements
-            const barWrapper = document.createElement('span');
-            const barLabel = document.createElement('span');
-            const hoverText = document.createElement('span');
-            const bar = document.createElement('span');
-
-            //add eventListener
-            bar.addEventListener('click', (event:MouseEvent) => {
-                this.showLabel(event.target as HTMLElement)
-            });
-
-            bar.addEventListener('keyup', (event:KeyboardEvent) => {
-                if (event.type === 'keyup' && (event.code === 'Enter' || event.code === 'Space')) {
-                    this.showLabel(event.target as HTMLElement)
-                }
-            });
+            const barWrapper:HTMLSpanElement = createSpan([`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`]);
+            const barLabel:HTMLSpanElement = createSpan([`bar-chart__bar-label`], name);
+            const valueLabel:HTMLSpanElement = createSpan(['bar-chart__bar-value'], `${getReadableNumber(value)} ${unit}`);
+            const bar:HTMLSpanElement = createSpan([`bar-chart__bar`, `bar-chart__bar--${modifier}`]);
 
             //add tabIndex and aria-live settings
-            bar.tabIndex = 0;
-            hoverText.setAttribute('aria-live', 'polite')
+            barWrapper.tabIndex = 0;
+            valueLabel.setAttribute('aria-live', 'polite')
             barWrapper.setAttribute('aria-atomic', 'true')
-
-            //add classes
-            barWrapper.classList.add(`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`);
-            barLabel.classList.add(`bar-chart__bar-label`);
-            bar.classList.add(`bar-chart__bar`, `bar-chart__bar--${modifier}`);
-            hoverText.classList.add('bar-chart__bar-value');
 
             //add styles
             style += this.addAnimationStyle(maxNum, value, name);
             style += this.getColor(name, color);
 
-            // create label & hover text
-            barLabel.textContent = `${name}`;
-            hoverText.textContent = `${value} ${unit}`;
-
             //assemble bar & screen reader text
             barWrapper.append(barLabel);
-            bar.append(hoverText);
+            barWrapper.append(valueLabel);
             barWrapper.append(bar);
             container.append(barWrapper);
         });
@@ -106,28 +87,6 @@ class BarChart extends HTMLElement {
         this.shadowRoot.prepend(styleElement);
         return container;
     }
-
-    showLabel = (target:HTMLElement) => {
-        const baseClassValue = 'bar-chart__bar-value';
-        const activeClass = `${baseClassValue}--active`;
-        const barChildren = Array.from(target.children);
-        const label = barChildren.find((element:HTMLElement) => {
-            if(element.classList.contains(baseClassValue)) {
-                return element as HTMLElement;
-            }
-        });
-
-        if (label.classList.contains(activeClass)) {
-            return;
-        }
-
-        const activeBar = this.shadowRoot.querySelector(`.${activeClass}`);
-        if(activeBar) {
-            activeBar.classList.remove(activeClass);
-        }
-        
-        label.classList.add(activeClass);
-    };
 
     addAnimationStyle = (maxNum:number, value:number, name:string):string => {
         let style:string = '';
@@ -143,9 +102,7 @@ class BarChart extends HTMLElement {
     }
 
     showError = (error:Error) => {
-        const errorMessage:HTMLSpanElement = document.createElement('span');
-        errorMessage.classList.add('bar-chart__error');
-        errorMessage.textContent = error.message;
+        const errorMessage:HTMLSpanElement = createSpan(['bar-chart__error'], error.message);
         const container = this._shadowRoot.querySelector('.bar-chart__container') as HTMLElement;
         container.append(errorMessage);
     }
