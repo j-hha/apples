@@ -15,3 +15,12 @@ export const getHeight = (maxNum:number, value:number, maxHeight=100):string => 
     const height = (value * factor).toString();
     return `${height}px`;
 }
+
+
+/* 
+
+if num > 1000
+divide by 1000 and add K
+if num > 1,000,000 divide by 1,000,000 and add mio 
+
+*/

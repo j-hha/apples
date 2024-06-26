@@ -4,6 +4,7 @@ import { loadJSON } from "../helper/load-json";
 import { getHeight, getRange } from "../helper/calculate-sizes";
 import { getRandomColor } from "../helper/get-random-color";
 import { createSpan } from "../helper/create-span";
+import { getReadableNumber } from "../helper/get-readable-number";
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
     private _internals:ElementInternalsExtended;
@@ -63,7 +64,7 @@ class BarChart extends HTMLElement {
             //create bar elements
             const barWrapper:HTMLSpanElement = createSpan([`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`]);
             const barLabel:HTMLSpanElement = createSpan([`bar-chart__bar-label`], name);
-            const hoverText:HTMLSpanElement = createSpan(['bar-chart__bar-value'], `${value} ${unit}`);
+            const hoverText:HTMLSpanElement = createSpan(['bar-chart__bar-value'], `${getReadableNumber(value)} ${unit}`);
             const bar:HTMLSpanElement = createSpan([`bar-chart__bar`, `bar-chart__bar--${modifier}`]);
 
             //add eventListener
