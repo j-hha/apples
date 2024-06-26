@@ -1,26 +1,17 @@
 :host {
     --light-grey: #efefef;
     --dark-grey: #555;
+    --white: #fff;
     font-size: 16px;
     font-family: sans-serif;
 }
 
 .bar-chart__bar-value {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: .2rem;
-    white-space: nowrap;
-    z-index: 1;
+    margin-bottom: .2rem;
+    font-size: .5rem;
+    order: 1;
     color: var(--dark-grey);
-    background-color: rgba(255,255,255,.8);
-    display: none;
-    border-radius: .2rem .2rem .2rem 0;
-    box-shadow: 1px 1px 2px var(--dark-grey);
-}
-
-.bar-chart__bar-value--active {
-    display: block;
+    text-align: center;
 }
 
 .bar-chart__figure {
@@ -29,6 +20,7 @@
     padding-top: 1rem;
     min-width: 320px;
     margin: 1rem auto;
+    background-color: var(--white);
 }
 
 .bar-chart__caption {
@@ -50,6 +42,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    margin: .3rem;
 }
 
 .bar-chart__bar {
@@ -59,7 +52,7 @@
     position: relative;
     border-top-right-radius: .2rem;
     border-top-left-radius: .2rem;
-    order: 1;
+    order: 2;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -71,7 +64,7 @@
 
 
 .bar-chart__bar-label {
-    order: 2;
+    order: 3;
     text-align: center;
     padding: .5rem;
     display: block;

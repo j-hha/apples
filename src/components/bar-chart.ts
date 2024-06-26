@@ -64,23 +64,12 @@ class BarChart extends HTMLElement {
             //create bar elements
             const barWrapper:HTMLSpanElement = createSpan([`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`]);
             const barLabel:HTMLSpanElement = createSpan([`bar-chart__bar-label`], name);
-            const hoverText:HTMLSpanElement = createSpan(['bar-chart__bar-value'], `${getReadableNumber(value)} ${unit}`);
+            const valueLabel:HTMLSpanElement = createSpan(['bar-chart__bar-value'], `${getReadableNumber(value)} ${unit}`);
             const bar:HTMLSpanElement = createSpan([`bar-chart__bar`, `bar-chart__bar--${modifier}`]);
 
-            //add eventListener
-            bar.addEventListener('click', (event:MouseEvent) => {
-                this.showLabel(event.target as HTMLElement)
-            });
-
-            bar.addEventListener('keyup', (event:KeyboardEvent) => {
-                if (event.type === 'keyup' && (event.code === 'Enter' || event.code === 'Space')) {
-                    this.showLabel(event.target as HTMLElement)
-                }
-            });
-
             //add tabIndex and aria-live settings
-            bar.tabIndex = 0;
-            hoverText.setAttribute('aria-live', 'polite')
+            barWrapper.tabIndex = 0;
+            valueLabel.setAttribute('aria-live', 'polite')
             barWrapper.setAttribute('aria-atomic', 'true')
 
             //add styles
@@ -89,7 +78,7 @@ class BarChart extends HTMLElement {
 
             //assemble bar & screen reader text
             barWrapper.append(barLabel);
-            bar.append(hoverText);
+            barWrapper.append(valueLabel);
             barWrapper.append(bar);
             container.append(barWrapper);
         });
@@ -98,28 +87,6 @@ class BarChart extends HTMLElement {
         this.shadowRoot.prepend(styleElement);
         return container;
     }
-
-    showLabel = (target:HTMLElement) => {
-        const baseClassValue = 'bar-chart__bar-value';
-        const activeClass = `${baseClassValue}--active`;
-        const barChildren = Array.from(target.children);
-        const label = barChildren.find((element:HTMLElement) => {
-            if(element.classList.contains(baseClassValue)) {
-                return element as HTMLElement;
-            }
-        });
-
-        if (label.classList.contains(activeClass)) {
-            return;
-        }
-
-        const activeBar = this.shadowRoot.querySelector(`.${activeClass}`);
-        if(activeBar) {
-            activeBar.classList.remove(activeClass);
-        }
-        
-        label.classList.add(activeClass);
-    };
 
     addAnimationStyle = (maxNum:number, value:number, name:string):string => {
         let style:string = '';
