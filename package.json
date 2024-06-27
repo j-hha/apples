@@ -1,7 +1,7 @@
 {
-  "name": "apples",
+  "name": "web-component-charts",
   "version": "1.0.0",
-  "description": "Apple stats visualisation",
+  "description": "charts as reusable web components",
   "private": true,
   "scripts": {
     "build": "npx webpack",
@@ -20,8 +20,11 @@
   "homepage": "https://github.com/j-hha/apples#readme",
   "devDependencies": {
     "@eslint/js": "^9.5.0",
+    "css-loader": "^7.1.2",
     "eslint": "^9.5.0",
     "globals": "^15.6.0",
+    "html-loader": "^5.0.0",
+    "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.14.1",

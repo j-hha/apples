@@ -5,7 +5,8 @@ Charts as reusable web components - a practice project.
 ### In HTML
 ```
 <component-name data-json='json-file-name'>
-        <span slot="caption-text">caption text</span>
+    <span slot="caption-text">caption text</span>
+    <noscript slot="no-script">noscript text</noscript>
 </component-name>
 ```
 ### Available Components

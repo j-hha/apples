@@ -7,7 +7,7 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-(self["webpackChunkapples"] = self["webpackChunkapples"] || []).push([["src_data_example-data_json"],{
+(self["webpackChunkweb_component_charts"] = self["webpackChunkweb_component_charts"] || []).push([["src_data_example-data_json"],{
 
 /***/ "./src/data/example-data.json":
 /*!************************************!*\
@@ -15,7 +15,7 @@
   \************************************/
 /***/ ((module) => {
 
-eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"Fruit one\",\"value\":1,\"unit\":\"kilo\",\"color\":\"#000\"},{\"name\":\"Fruit two\",\"value\":2,\"unit\":\"kilo\",\"color\":\"green\"},{\"name\":\"Fruit three\",\"value\":3,\"unit\":\"kilo\"}]}');\n\n//# sourceURL=webpack://apples/./src/data/example-data.json?");
+eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"Fruit one\",\"value\":1,\"unit\":\"kilo\",\"color\":\"#000\"},{\"name\":\"Fruit two\",\"value\":2,\"unit\":\"kilo\",\"color\":\"green\"},{\"name\":\"Fruit three\",\"value\":3,\"unit\":\"kilo\"}]}');\n\n//# sourceURL=webpack://web-component-charts/./src/data/example-data.json?");
 
 /***/ })
 
