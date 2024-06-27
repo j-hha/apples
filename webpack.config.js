@@ -10,6 +10,25 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: [
+          {
+            loader: "style-loader",
+            options: {
+              injectType: "lazyStyleTag",
+              insert: require.resolve("./insert-function"),
+            },
+          },
+          "css-loader",
+        ],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+        exclude: /node_modules/,
+      },
     ],
   },
   resolve: {

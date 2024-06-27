@@ -1,11 +1,13 @@
-import { isElementInview } from "../helper/intersection-observer";
-import { StatsData } from "../helper/types";
-import { loadJSON } from "../helper/load-json";
-import { getHeight, getRange } from "../helper/calculate-sizes";
-import { getRandomColor } from "../helper/get-random-color";
-import { createSpan } from "../helper/create-span";
-import { getReadableNumber } from "../helper/get-readable-number";
-import { ElementInternalsExtended } from '../helper/extended-element-internals';
+import { isElementInview } from "../../helper/intersection-observer";
+import { StatsData } from "../../helper/types";
+import { loadJSON } from "../../helper/load-json";
+import { getHeight, getRange } from "../../helper/calculate-sizes";
+import { getRandomColor } from "../../helper/get-random-color";
+import { createSpan } from "../../helper/create-span";
+import { getReadableNumber } from "../../helper/get-readable-number";
+import { ElementInternalsExtended } from '../../helper/extended-element-internals';
+import styles from './bar-chart.css';
+
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
     private _internals:ElementInternalsExtended;
@@ -20,6 +22,7 @@ class BarChart extends HTMLElement {
         this._internals = this.attachInternals() as ElementInternalsExtended;
         this._shadowRoot = this.attachShadow({ mode: "open"});
         this._shadowRoot.appendChild(this._clone);
+        styles.use({ target: this._shadowRoot });
     }
 
     set data(data:Array<StatsData>) {

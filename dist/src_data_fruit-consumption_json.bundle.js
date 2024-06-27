@@ -7,7 +7,7 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-(self["webpackChunkapples"] = self["webpackChunkapples"] || []).push([["src_data_fruit-consumption_json"],{
+(self["webpackChunkweb_component_charts"] = self["webpackChunkweb_component_charts"] || []).push([["src_data_fruit-consumption_json"],{
 
 /***/ "./src/data/fruit-consumption.json":
 /*!*****************************************!*\
@@ -15,7 +15,7 @@
   \*****************************************/
 /***/ ((module) => {
 
-eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"apples\",\"value\":1663500,\"unit\":\"tons\",\"color\":\"#e03a3e\"},{\"name\":\"bananas\",\"value\":914500,\"unit\":\"tons\",\"color\":\"#fdb827\"},{\"name\":\"grapes\",\"value\":427800,\"unit\":\"tons\",\"color\":\"#693D97\"},{\"name\":\"strawberries\",\"value\":327700,\"unit\":\"tons\",\"color\":\"#ff0080\"}]}');\n\n//# sourceURL=webpack://apples/./src/data/fruit-consumption.json?");
+eval("module.exports = /*#__PURE__*/JSON.parse('{\"data\":[{\"name\":\"apples\",\"value\":1663500,\"unit\":\"tons\",\"color\":\"#e03a3e\"},{\"name\":\"bananas\",\"value\":914500,\"unit\":\"tons\",\"color\":\"#fdb827\"},{\"name\":\"grapes\",\"value\":427800,\"unit\":\"tons\",\"color\":\"#693D97\"},{\"name\":\"strawberries\",\"value\":327700,\"unit\":\"tons\",\"color\":\"#ff0080\"}]}');\n\n//# sourceURL=webpack://web-component-charts/./src/data/fruit-consumption.json?");
 
 /***/ })
 
