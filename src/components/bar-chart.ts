@@ -5,6 +5,7 @@ import { getHeight, getRange } from "../helper/calculate-sizes";
 import { getRandomColor } from "../helper/get-random-color";
 import { createSpan } from "../helper/create-span";
 import { getReadableNumber } from "../helper/get-readable-number";
+import { ElementInternalsExtended } from '../helper/extended-element-internals';
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
     private _internals:ElementInternalsExtended;
@@ -57,7 +58,7 @@ class BarChart extends HTMLElement {
         const maxNum = getRange(data);
         let style:string = '';
         const styleElement = document.createElement('style');
-        data.forEach((item:StatsData, index:number) => {
+        data.forEach((item:StatsData) => {
             const { name, value, unit, color } = item;
             const modifier = name.split(' ').join('-');
             
@@ -68,9 +69,7 @@ class BarChart extends HTMLElement {
             const bar:HTMLSpanElement = createSpan([`bar-chart__bar`, `bar-chart__bar--${modifier}`]);
 
             //add tabIndex and aria-live settings
-            barWrapper.tabIndex = 0;
-            valueLabel.setAttribute('aria-live', 'polite')
-            barWrapper.setAttribute('aria-atomic', 'true')
+            bar.setAttribute('aria-hidden', 'true');
 
             //add styles
             style += this.addAnimationStyle(maxNum, value, name);
