@@ -108,11 +108,11 @@ class BarChart extends HTMLElement {
 
     attributeChangedCallback(name:string, oldValue:string, newValue:string = ''):void {
         if(name === 'data-json' && newValue.length > 0) {
-            const resolve = (data:Array<StatsData>) => {
+            const resolve = (data:Array<StatsData>):void => {
                 this.data = data;
             }
 
-            const reject = (error:Error) => {
+            const reject = (error:Error):void => {
                 this.showError(error);
             }
 

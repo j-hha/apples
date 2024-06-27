@@ -1,10 +1,12 @@
-export const isElementInview = (target:Element, callback:Function) => {
+type ObserverCallbackFunction = (inView: boolean) => void;
+
+export const isElementInview = (target:Element, callback:ObserverCallbackFunction) => {
     const options = {
         rootMargin: "0px",
         threshold: .5,
     };
 
-  const observerCallback = (entries:Array<IntersectionObserverEntry>, observer:IntersectionObserver) => {
+  const observerCallback = (entries:Array<IntersectionObserverEntry>) => {
     callback(entries[0].isIntersecting);
   };
   

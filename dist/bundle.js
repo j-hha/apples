@@ -71,7 +71,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   isElementInview: () => (/* binding */ isElementInview)\n/* harmony export */ });\nconst isElementInview = (target, callback) => {\n    const options = {\n        rootMargin: \"0px\",\n        threshold: .5,\n    };\n    const observerCallback = (entries, observer) => {\n        callback(entries[0].isIntersecting);\n    };\n    const observer = new IntersectionObserver(observerCallback, options);\n    return observer.observe(target);\n};\n\n\n//# sourceURL=webpack://apples/./src/helper/intersection-observer.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   isElementInview: () => (/* binding */ isElementInview)\n/* harmony export */ });\nconst isElementInview = (target, callback) => {\n    const options = {\n        rootMargin: \"0px\",\n        threshold: .5,\n    };\n    const observerCallback = (entries) => {\n        callback(entries[0].isIntersecting);\n    };\n    const observer = new IntersectionObserver(observerCallback, options);\n    return observer.observe(target);\n};\n\n\n//# sourceURL=webpack://apples/./src/helper/intersection-observer.ts?");
 
 /***/ }),
 
