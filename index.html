@@ -23,19 +23,11 @@
       <section>
         <h3>How?</h3>
         <p>The chart components live in their own encapsulated context. 
-          You can use them anywhere without breaking them accidentally with your own code. 
+          You can use them anywhere without breaking them accidentally with your own code - <a href="https://lamplightdev.com/blog/2019/03/26/why-is-my-web-component-inheriting-styles/">with some exceptions</a>. 
           If you change the styles of this document, for example, it will not affect the chart.
         </p>
         <p> Try it out by altering the following styles. While this document will change in appearance, 
           the chart below will not.
-          <br />
-          <label>Change the font size:
-            <select name="font-size" id="font-size">
-              <option value="16px">16px</option>
-              <option value="32px">32px</option>
-              <option value="48px">48px</option>
-            </select>
-          </label>
           <br />
           <label>Change the font family:
             <select name="font-family" id="font-family">
@@ -45,7 +37,7 @@
           </label>
           <br />
           <label>Change the font color:
-            <select name="font-color" id="font-color">
+            <select name="color" id="font-color">
               <option value="black">black</option>
               <option value="deeppink">deeppink</option>
             </select>
@@ -72,5 +64,6 @@
       </section>
     </main>
     <script src="./dist/bundle.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
