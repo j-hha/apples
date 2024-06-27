@@ -15,7 +15,11 @@
             <span class="bar-chart__container"></span>
             <figcaption class="bar-chart__caption">
                 <slot name="caption-text">
-                  <i>placeholder- add a screen reader friendly description</i>
+                  <i>Placeholder - please add a screen reader friendly description.</i>
+                </slot>
+                <br />
+                <slot name="no-script">
+                  <i>Noscript tag placeholder - please add an instructive text.</i>
                 </slot>
             </figcaption>
         </figure>
@@ -26,11 +30,13 @@
       <h2>Example 1 - bar charts </h2>
       <h3>Bar chart: Fruit consumption in Germany</h3>
       <bar-chart data-json='fruit-consumption' class="chart">
-        <span slot="caption-text">This bar chart shows the consumption in tons for the three most popular fruit varieties in Germany in the economic year 2022/2023.</span>
+        <span slot="caption-text">This bar chart shows the consumption in tons for the most popular fruit varieties in Germany in the economic year 2022/2023.</span>
+        <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
       </bar-chart>
       <h3>Bar chart: Error</h3>
       <bar-chart data-json='error' class="chart">
         <span slot="caption-text">This should show an error message instead of a bar chart, as the json file name is incorrect.</span>
+        <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
       </bar-chart>
     </main>
     <script src="bundle.js"></script>
