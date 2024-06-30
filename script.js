@@ -1,14 +1,11 @@
 const changeStyle = (event) => {
-    const {target: { name, value } } = event;
-    console.log(value);
-
-    const body = document.querySelector('body');
-    body.style[name] = value;
+    const {target: { value } } = event;
+    const style = document.querySelector('#js-head-style');
+    style.innerHTML = value;
 }
 
 const selectors = [
-    document.querySelector('#font-family'),
-    document.querySelector('#font-color')
+    document.querySelector('#js-select')
 ];
 
 selectors.forEach(selector => {

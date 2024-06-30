@@ -6,63 +6,81 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Practice project: animated charts as reusable web components</title>
     <link rel="stylesheet" href="./styles/styles.css">
+    <style id="js-head-style"></style>
   </head>
   <body>
-    <header>
-      <h1>Animated charts as reusable web components</h1>
-      <h2>A practice project</h2>
-      <nav>
-        <a href="#main">skip to main</a>
-        <a href="./components.html">available components</a>
-      </nav>
+    <header class="header">
+      <img class="header__icon" src="./bar.svg" aria-hidden="true">
+      <div>
+        <h1 class="header__heading">Animated charts</h1>
+        <h2 class="header__subheading">A web components practice project</h2>
+      </div>
     </header>
+    <nav class="nav">
+      <a class="nav__item" href="#main">skip to main</a>
+      <a class="nav__item" href="./components.html">components</a>
+    </nav>
     <main class="main">
-      <section>
-        <h3>What?</h3>
-      </section>
-      <section>
-        <h3>How?</h3>
-        <p>The chart components live in their own encapsulated context. 
-          You can use them anywhere without breaking them accidentally with your own code - <a href="https://lamplightdev.com/blog/2019/03/26/why-is-my-web-component-inheriting-styles/">with some exceptions</a>. 
-          If you change the styles of this document, for example, it will not affect the chart.
-        </p>
-        <p> Try it out by altering the following styles. While this document will change in appearance, 
-          the chart below will not.
-          <br />
-          <label>Change the font family:
-            <select name="font-family" id="font-family">
-              <option value="Arial">Arial</option>
-              <option value="Georgia">Georgia</option>
-            </select>
-          </label>
-          <br />
-          <label>Change the font color:
-            <select name="color" id="font-color">
-              <option value="black">black</option>
-              <option value="deeppink">deeppink</option>
-            </select>
-          </label>
-          <br />
-        </p>
-        <bar-chart data-json='fruit-consumption' class="chart">
-          <span slot="caption-text">This bar chart shows the consumption in tons for the most popular fruit varieties in Germany in the economic year 2022/2023.</span>
-          <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
-        </bar-chart>
-      </section>
-      <section>
-        <h3>Why?</h3>
-        <p>
-          <dl>
-            <dt>No framework needed</dt>
-            <dd>This is all possible with vanilla JS: No JS bloat from unused framework code and resulting performance costs.</dd>
-            <dt>Prettier markup HTML templates and slots</dt>
-            <dd>JS and HTML become more readable. </dd>
-            <dt>Resuable code</dt>
-            <dd>... </dd>
-          </dl>
-        </p>
-      </section>
+      <article class="article">
+        <div class="article__text article__text--2col">
+          <div class="article__col">
+            <h3 class="article__heading">What?</h3>
+          <p class="article__paragraph">
+            A set of charts build as <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components">web components</a>. Web components are pieces of reusable code. 
+            The technology used is browser native. No additional framework has been used.
+          </p>
+            <h3 class="article__heading">How?</h3>
+          <p>
+            Web components consist of three browser native technologies: <code class="code--inline">&lttemplate&gt</code>, custom elements and the shadow DOM.
+            When the shadow DOM is attached to a component, it lives in its own encapsulated context.
+            You can use the component anywhere without accidentally breaking outside styles.
+          </p>
+          <p class="bar-chart__caption">
+            This paragraph, for example, has the same css class as the chart's caption. Yet, none of the defined styles should come into effect here. The background will therefore stay white.
+          </p>
+          <h3 class="article__heading">Gotchas</h3>
+          <p>
+            Be aware that <a href="https://lamplightdev.com/blog/2019/03/26/why-is-my-web-component-inheriting-styles/">the components might inherit some outside styles</a>, though. 
+            To prevent style leakage here, <code class="code--inline">:host { all: unset }</code> has been added to the component's styles.
+            If you change the font of the body now, for example, it will not affect the bar chart component.
+            However, if you change the font on the * selector, the style will still leak into the bar chart component.
+          </p>
+          <p>
+            <label for="js-select">Try it out by changing the document's font styles:
+              <select name="change-font" id="js-select" class="article__select">
+                <option selected value="">original styles</option>
+                <option value="body { font-family: 'Georgia', serif !important; }">set body's font to Georgia</option>
+                <option value="* { font-family: 'Georgia', serif !important; }">set * font to Georgia</option>
+              </select>
+            </label>
+          </p>
+          </div>
+          <bar-chart data-json='fruit-consumption' class="chart article__col" class="article__select">
+            <span slot="caption-text">This bar chart shows the consumption in tons for the most popular fruit varieties in Germany in the economic year 2022/2023.</span>
+            <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
+          </bar-chart>
+        </div>
+        <div class="article__text">
+          <h3 class="article__heading">Why?</h3>
+          <p class="article__paragraph">
+            <dl class="article__dl">
+              <dt class="article__dt">No framework needed</dt>
+              <dd class="article__dd">This is all possible with vanilla JS: No JS bloat from unused framework code and resulting performance costs.</dd>
+              <dt class="article__dt">Prettier markup with templates and slots</dt>
+              <dd class="article__dd">JS and HTML become more readable. </dd>
+              <dt class="article__dt">Reusable code</dt>
+              <dd class="article__dd">The components can be easily placed in various contexts with different data.</dd>
+              <dt class="article__dt">Encapsulated components</dt>
+              <dd class="article__dd">The components live in their own context. Their logic and styles should not affect any outside elements.</dd>
+            </dl>
+          </p>
+        </div>
+      </article>
     </main>
+    <footer class="footer">
+      <p>By j-hha - <a href="https://github.com/j-hha/web-component-charts">Find the code on github</a>.</p>
+      <p><small>For private use only</small></p>
+    </footer>
     <script src="./dist/bundle.js"></script>
     <script src="./script.js"></script>
   </body>
