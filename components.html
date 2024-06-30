@@ -8,11 +8,23 @@
     <link rel="stylesheet" href="./styles/styles.css">
   </head>
   <body>
+    <header class="header">
+      <img class="header__icon" src="./bar.svg" aria-hidden="true">
+      <div>
+        <h1 class="header__heading">Animated charts</h1>
+        <h2 class="header__subheading">A web components practice project</h2>
+      </div>
+    </header>
+    <nav class="nav">
+      <a class="nav__item" href="#main">skip to main</a>
+      <a class="nav__item" href="./index.html">home</a>
+    </nav>
     <main class="main">
-      <h1>Available components</h1>
-      <h2>Bar chart</h2>
-      <h3>Usage</h3>
-      <code>
+      <h2>Available components</h2>
+      <section class="section">
+        <h3>Bar chart</h3>
+        <h4>Usage</h4>
+      <code class="code">
         &ltcomponent-name data-json='json-file-name'&gt
         <br />
         &nbsp;&nbsp;&ltspan slot="caption-text"&gtcaption text&lt/span&gt
@@ -21,17 +33,22 @@
         <br />
         &lt/component-name&gt
       </code>
-      <h3>Example: Fruit consumption in Germany</h3>
+      <h4>Example: Fruit consumption in Germany</h4>
       <bar-chart data-json='fruit-consumption' class="chart">
         <span slot="caption-text">This bar chart shows the consumption in tons for the most popular fruit varieties in Germany in the economic year 2022/2023.</span>
         <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
       </bar-chart>
-      <h3>Example: Error</h3>
+      <h4>Example: Error</h4>
       <bar-chart data-json='error' class="chart">
         <span slot="caption-text">This should show an error message instead of a bar chart, as the json file name is incorrect.</span>
         <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
       </bar-chart>
+      </section>
     </main>
+    <footer class="footer">
+      <p>By j-hha</p>
+      <p><a href="https://github.com/j-hha/web-component-charts">Find the code on github</a>.</p>
+    </footer>
     <script src="./dist/bundle.js"></script>
   </body>
 </html>
