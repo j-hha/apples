@@ -35,10 +35,13 @@
             When the shadow DOM is attached to a component, it lives in its own encapsulated context.
             You can use the component anywhere without accidentally breaking outside styles.
           </p>
+          <p class="bar-chart__caption">
+            This paragraph, for example, has the same css class as the chart's caption. Yet, none of the defined styles should come into effect here. The background will therefore stay white.
+          </p>
           <h3 class="article__heading">Gotchas</h3>
           <p>
-            Be aware that <a href="https://lamplightdev.com/blog/2019/03/26/why-is-my-web-component-inheriting-styles/">outside styles might leak into the components</a> 
-            in some cases. To prevent styles from the main document leaking into the component, <code class="code--inline">:host { all: unset }</code> has been added to the component's styles.
+            Be aware that <a href="https://lamplightdev.com/blog/2019/03/26/why-is-my-web-component-inheriting-styles/">the components might inherit some outside styles</a>, though. 
+            To prevent style leakage here, <code class="code--inline">:host { all: unset }</code> has been added to the component's styles.
             If you change the font of the body now, for example, it will not affect the bar chart component.
             However, if you change the font on the * selector, the style will still leak into the bar chart component.
           </p>
@@ -46,8 +49,8 @@
             <label for="js-select">Try it out by changing the document's font styles:
               <select name="change-font" id="js-select" class="article__select">
                 <option selected value="">original styles</option>
-                <option value="body { font-family: Georgia, serif; }">set body's font to Georgia</option>
-                <option value="* { font-family: Georgia, serif; }">set * font to Georgia</option>
+                <option value="body { font-family: 'Georgia', serif !important; }">set body's font to Georgia</option>
+                <option value="* { font-family: 'Georgia', serif !important; }">set * font to Georgia</option>
               </select>
             </label>
           </p>
