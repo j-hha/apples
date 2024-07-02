@@ -1,7 +1,8 @@
+@value v-light-grey: #EFEFEF;
+@value v-dark-grey: #555;
+@value v-white: #FFF;
+
 :host {
-    --light-grey: #efefef;
-    --dark-grey: #555;
-    --white: #fff;
     all: initial;
     font-size: 16px;
     font-family: 'Arial', sans-serif;
@@ -15,22 +16,22 @@
     margin-bottom: .2rem;
     font-size: .5rem;
     order: 1;
-    color: var(--dark-grey);
+    color: v-dark-grey;
     text-align: center;
 }
 
 .bar-chart__figure {
-    border: 1px solid var(--light-grey);
+    border: 1px solid v-light-grey;
     border-radius: .5rem;
     padding-top: 1rem;
     margin: 1rem auto;
-    background-color: var(--white);
+    background-color: white;
 }
 
 .bar-chart__caption {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: var(--light-grey);
+    background-color: v-light-grey;
 }
 
 .bar-chart__container {
@@ -46,6 +47,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: center;
+    width: fit-content;
     margin: .3rem;
 }
 
