@@ -14,13 +14,14 @@ module.exports = {
         test: /\.css$/i,
         use: [
           {
-            loader: "style-loader",
+            loader: "css-loader",
             options: {
-              injectType: "lazyStyleTag",
-              insert: require.resolve("./insert-function"),
+              exportType: "css-style-sheet",
+              modules: {
+                mode: 'global',
+              },
             },
           },
-          "css-loader",
         ],
         exclude: /node_modules/,
       },

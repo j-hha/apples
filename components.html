@@ -16,38 +16,50 @@
       </div>
     </header>
     <nav class="nav">
-      <a class="nav__item" href="#main">skip to main</a>
-      <a class="nav__item" href="./index.html">home</a>
+      <ol class="nav__list">
+        <li class="nav__list-item">
+          <a class="nav__list-item-link" href="#main">to main</a>
+        </li>
+        <li class="nav__list-item">
+          <a class="nav__list-item-link" href="./index.html">home</a>
+        </li>
+        <li class="nav__list-item">
+          <a class="nav__list-item-link nav__list-item-link--active" href="./components.html" aria-current="page">components</a>
+        </li>
+        <li class="nav__list-item">
+          <a class="nav__list-item-link" href="./fixes.html">fixes</a>
+        </li>
+      </ol>
     </nav>
     <main class="main">
-      <h2>Available components</h2>
+      <h2 class="main__heading">Available components</h2>
       <section class="section">
-        <h3>Bar chart</h3>
-        <h4>Usage</h4>
-      <code class="code">
-        &ltcomponent-name data-json='json-file-name'&gt
-        <br />
-        &nbsp;&nbsp;&ltspan slot="caption-text"&gtcaption text&lt/span&gt
-        <br />
-        &nbsp;&nbsp;&ltnoscript slot="no-script"&gtnoscript text&lt/noscript&gt
-        <br />
-        &lt/component-name&gt
-      </code>
-      <h4>Example: Fruit consumption in Germany</h4>
-      <bar-chart data-json='fruit-consumption' class="chart">
-        <span slot="caption-text">This bar chart shows the consumption in tons for the most popular fruit varieties in Germany in the economic year 2022/2023.</span>
-        <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
-      </bar-chart>
-      <h4>Example: Error</h4>
-      <bar-chart data-json='error' class="chart">
-        <span slot="caption-text">This should show an error message instead of a bar chart, as the json file name is incorrect.</span>
-        <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
-      </bar-chart>
-      </section>
+        <h3 class="section__heading">Bar chart</h3>
+        <h4 class="section__heading">Usage</h4>
+        <code class="code">
+          &ltcomponent-name data-json='json-file-name'&gt
+          <br />
+          &nbsp;&nbsp;&ltspan slot="caption-text"&gtcaption text&lt/span&gt
+          <br />
+          &nbsp;&nbsp;&ltnoscript slot="no-script"&gtnoscript text&lt/noscript&gt
+          <br />
+          &lt/component-name&gt
+        </code>
+        <h4 class="section__heading">Example: Fruit consumption in Germany</h4>
+        <bar-chart data-json='fruit-consumption' class="chart section__col">
+          <span slot="caption-text">This bar chart shows the consumption in tons for the most popular fruit varieties in Germany in the economic year 2022/2023.</span>
+          <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
+        </bar-chart>
+        <h4 class="section__heading">Example: Error</h4>
+        <bar-chart data-json='error' class="chart section__col">
+          <span slot="caption-text">This should show an error message instead of a bar chart, as the json file name is incorrect.</span>
+          <noscript slot="no-script">Please activate JavaScript in your browser settings to view this chart.</noscript>
+        </bar-chart>
+        </section>
     </main>
     <footer class="footer">
-      <p>By j-hha</p>
-      <p><a href="https://github.com/j-hha/web-component-charts">Find the code on github</a>.</p>
+      <p>By j-hha - <a href="https://github.com/j-hha/web-component-charts">Find the code on github</a>.</p>
+      <p><small>For private use only</small></p>
     </footer>
     <script src="./dist/bundle.js"></script>
   </body>

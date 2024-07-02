@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Practice project: animated charts as reusable web components</title>
+        <link rel="stylesheet" href="./styles/styles.css">
+    </head>
+    <body>
+        <header class="header">
+            <img class="header__icon" src="./bar.svg" aria-hidden="true">
+            <div>
+                <h1 class="header__heading">Animated charts</h1>
+                <h2 class="header__subheading">A web components practice project</h2>
+            </div>
+        </header>
+        <nav class="nav">
+            <ol class="nav__list">
+              <li class="nav__list-item">
+                <a class="nav__list-item-link" href="#main">to main</a>
+              </li>
+              <li class="nav__list-item">
+                <a class="nav__list-item-link" href="./index.html">home</a>
+              </li>
+              <li class="nav__list-item">
+                <a class="nav__list-item-link" href="./components.html">components</a>
+              </li>
+              <li class="nav__list-item">
+                <a class="nav__list-item-link nav__list-item-link--active" href="./fixes.html" aria-current="page">fixes</a>
+              </li>
+            </ol>
+          </nav>
+        <main class="main">
+        <h2 class="main__heading">Problems encountered</h2>
+        <article class="article">
+            <div class="article__content">
+                <h3 class="article__heading">style-loader injects styles only once</h3>
+                <p class="article__paragraph">
+                    <a href="https://webpack.js.org/loaders/style-loader/">Style-loader</a> is a third party loader package for webpack. 
+                    In combination with <a href="https://webpack.js.org/loaders/css-loader">css-loader</a>, developers can write css files, import them like js modules and style-loader will then inject the css into the DOM.
+                    However, when trying to <a href="https://webpack.js.org/loaders/style-loader/#insert">inject styles into the shadow DOM</a> as described in the documentation, 
+                    the styles only get attached to the first instance of the custom component. For all other instances, the style tag is missing completely.
+                </p>
+                <h4 class="article__heading">Fix</h4>
+                <p>
+                    <a href="https://stackoverflow.com/questions/75190827/issues-with-style-loader-lazyloading-for-multiple-elements-in-shadow-dom">This issue has been described before</a>. The suggested solution to remove 
+                    style-loader and use css-loader alone has worked here, too: In the webpack config, remove style-loader and set the <code class="code--inline">exportType</code> for css-loader to <code class="code--inline">css-style-sheet</code>.
+                    In your component, import the stylesheet and set the shadow DOM's <code class="code--inline">adoptedStyleSheets</code> property to your imported style sheet.
+                </p>
+                <p>
+                    Please note, <a href="https://github.com/webpack-contrib/css-loader/issues/197">you might not be able to use css variables</a> on <code class="code--inline">:host</code> in your css, when using css-loader. 
+                    Instead use <code class="code--inline">@value</code> in your css file and in your webpack config, set the <code class="code--inline">mode</code> for <code class="code--inline">modules</code> to <code class="code--inline">'global'</code>.
+                </p>
+            </div>
+        </article>
+        </main>
+        <footer class="footer">
+            <p>By j-hha - <a href="https://github.com/j-hha/web-component-charts">Find the code on github</a>.</p>
+            <p><small>For private use only</small></p>
+        </footer>
+    </body>
+</html>

@@ -6,7 +6,7 @@ import { getRandomColor } from "../../helper/get-random-color";
 import { createSpan } from "../../helper/create-span";
 import { getReadableNumber } from "../../helper/get-readable-number";
 import { ElementInternalsExtended } from '../../helper/extended-element-internals';
-import styles from './bar-chart.css';
+import baseStyles from './bar-chart.css';
 
 class BarChart extends HTMLElement {
     private _clone:DocumentFragment;
@@ -21,8 +21,15 @@ class BarChart extends HTMLElement {
         this._clone = template.content.cloneNode(true) as DocumentFragment;
         this._internals = this.attachInternals() as ElementInternalsExtended;
         this._shadowRoot = this.attachShadow({ mode: "open"});
+        this._shadowRoot.adoptedStyleSheets = [baseStyles];
         this._shadowRoot.appendChild(this._clone);
-        styles.use({ target: this._shadowRoot });
+    }
+
+    createStyleElement = (styles:string):HTMLStyleElement => {
+        console.log(styles)
+        const styleElement = document.createElement('style');
+        styleElement.textContent = styles;
+        return styleElement;
     }
 
     set data(data:Array<StatsData>) {
@@ -59,8 +66,7 @@ class BarChart extends HTMLElement {
 
     createBars = (container:HTMLElement, data:Array<StatsData>):HTMLSpanElement => {
         const maxNum = getRange(data);
-        let style:string = '';
-        const styleElement = document.createElement('style');
+        let styles:string = '';
         data.forEach((item:StatsData) => {
             const { name, value, unit, color } = item;
             const modifier = name.split(' ').join('-');
@@ -75,8 +81,8 @@ class BarChart extends HTMLElement {
             bar.setAttribute('aria-hidden', 'true');
 
             //add styles
-            style += this.addAnimationStyle(maxNum, value, name);
-            style += this.getColor(name, color);
+            styles += this.addAnimationStyle(maxNum, value, name);
+            styles += this.getColor(name, color);
 
             //assemble bar & screen reader text
             barWrapper.append(barLabel);
@@ -85,8 +91,7 @@ class BarChart extends HTMLElement {
             container.append(barWrapper);
         });
 
-        styleElement.textContent = style;
-        this.shadowRoot.prepend(styleElement);
+        this.shadowRoot.prepend(this.createStyleElement(styles));
         return container;
     }
 

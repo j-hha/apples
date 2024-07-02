@@ -34,6 +34,10 @@ body {
     color: rgb(var(--grey-dark));
     font-weight: 100;
     background-color: white;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
 }
 
 .header { 
@@ -71,32 +75,63 @@ body {
     border-bottom: 1px solid rgb(var(--grey-light));
 }
 
-.nav__item {
-    color: black;
-    text-decoration: none;
-    padding: 0 var(--spacing-s);
+.nav__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
-.nav__item:not(:last-of-type) {
+.nav__list-item {
+    display: inline-block;
+    padding: 0;
+}
+
+.nav__list-item:not(:last-of-type) {
     border-right: 1px solid black;
 }
 
-.article {
-    padding: var(--spacing-l);
+
+.nav__list-item-link {
+    text-decoration: none;    
+    padding: 0 var(--spacing-s);
+    display: inline-block;
 }
 
-.article__text--2col {
+.nav__list-item-link--active {
+    background-color: black;
+    color: white;
+}
+
+.nav__list-item-link--active:hover {
+    color: white;
+}
+
+.main {
+    padding: var(--spacing-m);
+}
+
+.section:not(:last-of-type) {
+    border-bottom: 1px solid rgb(var(--grey-light));
+}
+
+.article__content, .section__content {
+    padding: var(--spacing-m);
+}
+
+.section__content--2col, .article__content--2col {
     display: flex;
     flex-wrap: wrap;
+    padding: 0;
 }
 
-.article__col {
+.article__col, .section__col {
     flex: 1 1 300px;
+    padding: var(--spacing-m);
 }
 
-.section__heading, .article__heading {
+.main__heading, .section__heading, .article__heading {
     font-family: var(--monospace);
-    margin: var(--spacing-s) 0;
+    margin: var(--spacing-m) 0 var(--spacing-s);
 }
 
 .article__select {
@@ -119,13 +154,6 @@ body {
 
 .chart {
     display: block;
-    margin: var(--spacing-l);
-}
-
-@media screen and (min-width: 640px) {
-    .chart {
-        width: min-content;
-    }
 }
 
 .code, .code--inline {
@@ -139,11 +167,12 @@ body {
 }
 
 .code {
-    display: inline-block;
+    display: block;
     padding: var(--spacing-s);
     border-radius: .5rem;
+    white-space: nowrap;
+    overflow: scroll;
 }
-
 
 .footer {
     background-color: rgb(var(--teal));
@@ -159,4 +188,11 @@ body {
 
 .footer a:hover {
     font-weight: bold;
+}
+
+
+@media screen and (min-width: 640px) {
+    .code, .chart {
+        max-width: 600px;
+    }
 }
