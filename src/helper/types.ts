@@ -7,10 +7,10 @@ enum Unit {
 export type StatsData = {
     name: string,
     value: number,
-    unit: Unit,
-    color: string
+    color?: string
 }
 
 export type DataJson = {
-    data:Array<StatsData>
+    unit: Unit|'',
+    data: Array<StatsData>,
 };

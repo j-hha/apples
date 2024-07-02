@@ -38,25 +38,12 @@
           <div class="article__col">
             <h3 class="article__heading">What?</h3>
             <p class="article__paragraph">
-              A set of charts build as <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components">web components</a>. Web components are pieces of reusable code. 
+              A set of charts built as <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components">web components</a>. Web components are pieces of reusable code. 
               The technology used is browser native. No additional framework has been used.
-            </p>
-            <h4 class="article__heading">Complete list of technologies</h4>
-            <p class="article__paragraph">
-              <ul>
-                <li>HTML Templates</li>
-                <li>Custom Elements</li>
-                <li>Shadow DOM</li>
-                <li>TypeScript</li>
-                <li>Webpack</li>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-              </ul>
             </p>
             <h3 class="article__heading">How?</h3>
             <p>
-              Web components consist of three browser native technologies: <code class="code--inline">&lttemplate&gt</code>, custom elements and the shadow DOM.
+              Web components consist of three browser native technologies: HTML templates, custom elements and the shadow DOM.
               When the shadow DOM is attached to a component, it lives in its own encapsulated context.
               You can use the component anywhere without accidentally breaking outside styles.
             </p>
@@ -66,7 +53,7 @@
             <h3 class="article__heading">Gotchas</h3>
             <p>
               Be aware that <a href="https://lamplightdev.com/blog/2019/03/26/why-is-my-web-component-inheriting-styles/">the components might inherit some outside styles</a>, though. 
-              To prevent style leakage here, <code class="code--inline">:host { all: unset }</code> has been added to the component's styles.
+              To prevent style leakage here, the following style has been added to the component: <code class="code--inline">:host { all: unset }</code>.
               If you change the font of the body now, for example, it will not affect the bar chart component.
               However, if you change the font on the * selector, the style will still leak into the bar chart component.
             </p>
@@ -103,8 +90,33 @@
       </article>
     </main>
     <footer class="footer">
-      <p>By j-hha - <a href="https://github.com/j-hha/web-component-charts">Find the code on github</a>.</p>
-      <p><small>For private use only</small></p>
+      <h2 class="footer__heading">About this project</h2>
+      <div class="footer__content">
+        <div class="footer__content-col">
+          <h3 class="footer__heading">List of technologies used</h3>
+          <p>
+            <ul class="footer__content-list">
+              <li class="footer__content-list-item">HTML Templates</li>
+              <li class="footer__content-list-item">Custom Elements</li>
+              <li class="footer__content-list-item">Shadow DOM</li>
+              <li class="footer__content-list-item">TypeScript</li>
+              <li class="footer__content-list-item">Webpack</li>
+              <li class="footer__content-list-item">HTML</li>
+              <li class="footer__content-list-item">CSS</li>
+              <li class="footer__content-list-item">JavaScript</li>
+            </ul>
+            <a class="footer__link" href="https://github.com/j-hha/web-component-charts">Find the code on github</a>.
+          </p>
+        </div>
+        <div class="footer__content-col">
+          <h3 class="footer__heading">Author</h3>
+          <p>By <a class="footer__link" href="https://github.com/j-hha">j-hha</a></p>
+        </div>
+        <div class="footer__content-col">
+          <h3 class="footer__heading">Notice</h3>
+          <p>For private use only</p>
+        </div>
+      </div>
     </footer>
     <script src="./dist/bundle.js"></script>
     <script src="./script.js"></script>

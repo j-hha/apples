@@ -1,21 +1,23 @@
 {
+    "unit": "kilo",
     "data": [
         {
-            "name": "Fruit one",
-            "value": 1,
-            "unit": "kilo",
-            "color": "#000"
+            "name": "item 1",
+            "value": 300,
+            "color": "deeppink"
         },
         {
-            "name": "Fruit two",
-            "value": 2,
-            "unit": "kilo",
-            "color": "green"
+            "name": "item 2",
+            "value": 200,
+            "color": "#fdb827"
         },
         {
-            "name": "Fruit three",
-            "value": 3,
-            "unit": "kilo"
+            "name": "item 3",
+            "value": 500
+        },
+        {
+            "name": "item 4",
+            "value": 100
         }
     ]
 }

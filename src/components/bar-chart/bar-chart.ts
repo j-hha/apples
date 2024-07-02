@@ -1,5 +1,5 @@
 import { isElementInview } from "../../helper/intersection-observer";
-import { StatsData } from "../../helper/types";
+import { DataJson, StatsData } from "../../helper/types";
 import { loadJSON } from "../../helper/load-json";
 import { getHeight, getRange } from "../../helper/calculate-sizes";
 import { getRandomColor } from "../../helper/get-random-color";
@@ -14,6 +14,7 @@ class BarChart extends HTMLElement {
     private _shadowRoot:ShadowRoot;
     static observedAttributes = ["data-json",];
     private _data:Array<StatsData> = [];
+    private _unit:string = '';
 
     constructor() {
         super();
@@ -32,10 +33,16 @@ class BarChart extends HTMLElement {
         return styleElement;
     }
 
+    set unit(unit:string) {
+        this._unit = unit;
+    }
+
+    get unit():string {
+        return this._unit;
+    }
+
     set data(data:Array<StatsData>) {
         this._data = data;
-        const container = this._shadowRoot.querySelector('.bar-chart__container') as HTMLElement;
-        this.createBars(container, this.data)
     };
 
     get data():Array<StatsData> {
@@ -56,25 +63,26 @@ class BarChart extends HTMLElement {
 
     getColor = (name:string, color?:string):string => {
         let hexColor = color;
+        const modifier = name.split(' ').join('-');
 
         if(typeof hexColor === 'undefined') {
             hexColor = getRandomColor();
         }
 
-        return `:host(bar-chart) > .bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper > .bar-chart__bar--${name} { background-color: ${hexColor}; } `;
+        return `:host(bar-chart) > .bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper > .bar-chart__bar--${modifier} { background-color: ${hexColor}; } `;
     };
 
     createBars = (container:HTMLElement, data:Array<StatsData>):HTMLSpanElement => {
         const maxNum = getRange(data);
         let styles:string = '';
         data.forEach((item:StatsData) => {
-            const { name, value, unit, color } = item;
+            const { name, value, color } = item;
             const modifier = name.split(' ').join('-');
             
             //create bar elements
             const barWrapper:HTMLSpanElement = createSpan([`bar-chart__bar-wrapper`, `bar-chart__bar-wrapper--${modifier}`]);
             const barLabel:HTMLSpanElement = createSpan([`bar-chart__bar-label`], name);
-            const valueLabel:HTMLSpanElement = createSpan(['bar-chart__bar-value'], `${getReadableNumber(value)} ${unit}`);
+            const valueLabel:HTMLSpanElement = createSpan(['bar-chart__bar-value'], `${getReadableNumber(value)} ${this.unit}`);
             const bar:HTMLSpanElement = createSpan([`bar-chart__bar`, `bar-chart__bar--${modifier}`]);
 
             //add tabIndex and aria-live settings
@@ -98,9 +106,10 @@ class BarChart extends HTMLElement {
     addAnimationStyle = (maxNum:number, value:number, name:string):string => {
         let style:string = '';
         const height = getHeight(maxNum, value, 300);
+        const modifier = name.split(' ').join('-');
         const cssClasses = '.bar-chart__figure > .bar-chart__container > .bar-chart__bar-wrapper'
-        style += `:host(bar-chart) > ${cssClasses}--${name} { height: ${height}; } `;
-        style += `:host(bar-chart:state(inview)) > ${cssClasses} > .bar-chart__bar--${name} { height: ${height}; } `;
+        style += `:host(bar-chart) > ${cssClasses}--${modifier} { height: ${height}; } `;
+        style += `:host(bar-chart:state(inview)) > ${cssClasses} > .bar-chart__bar--${modifier} { height: ${height}; } `;
         return style;
     }
 
@@ -116,8 +125,11 @@ class BarChart extends HTMLElement {
 
     attributeChangedCallback(name:string, oldValue:string, newValue:string = ''):void {
         if(name === 'data-json' && newValue.length > 0) {
-            const resolve = (data:Array<StatsData>):void => {
-                this.data = data;
+            const resolve = (data:DataJson):void => {
+                this.data = data.data;
+                this.unit = data.unit;
+                const container = this._shadowRoot.querySelector('.bar-chart__container') as HTMLElement;
+                this.createBars(container, this.data);
             }
 
             const reject = (error:Error):void => {
