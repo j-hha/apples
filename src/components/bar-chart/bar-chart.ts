@@ -27,7 +27,6 @@ class BarChart extends HTMLElement {
     }
 
     createStyleElement = (styles:string):HTMLStyleElement => {
-        console.log(styles)
         const styleElement = document.createElement('style');
         styleElement.textContent = styles;
         return styleElement;
