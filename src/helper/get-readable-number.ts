@@ -9,10 +9,11 @@ type ReadableValue = {
 
 const divideByThousand = (num:number, currentIndex:number, maxNumOfRecursions:number):ReadableValue => {
     const result = num / 1000;
-
-    if (result < 1000 || currentIndex === maxNumOfRecursions){
+    const resultRounded = roundToOneDecimal(result);
+    
+    if (Math.abs(resultRounded) < 1000 || currentIndex === maxNumOfRecursions) {
         return {
-            value: roundToOneDecimal(result),
+            value: resultRounded,
             index: currentIndex,
         };
     }  
@@ -21,8 +22,10 @@ const divideByThousand = (num:number, currentIndex:number, maxNumOfRecursions:nu
 };
 
 export const getReadableNumber = (num:number):string => {
-    if (num < 1000){
-        return `${num}`;
+    const roundedNum = roundToOneDecimal(num);
+
+    if (Math.abs(roundedNum) < 1000){
+        return `${roundedNum}`;
     }
 
     const units = ['K', 'M', 'B', 'T'];
