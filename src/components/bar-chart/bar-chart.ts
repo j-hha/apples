@@ -1,11 +1,11 @@
 import { isElementInview } from "../../helper/intersection-observer";
-import { DataJson, StatsData } from "../../helper/types";
+import { DataJson, StatsData } from "../../helper/types/types";
 import { loadJSON } from "../../helper/load-json";
 import { getHeight, getRange } from "../../helper/calculate-sizes";
 import { getRandomColor } from "../../helper/get-random-color";
 import { createSpan } from "../../helper/create-span";
 import { getReadableNumber } from "../../helper/get-readable-number";
-import { ElementInternalsExtended } from '../../helper/extended-element-internals';
+import { ElementInternalsExtended } from '../../helper/types/extended-element-internals';
 import baseStyles from './bar-chart.css';
 
 class BarChart extends HTMLElement {

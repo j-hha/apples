@@ -1,4 +1,4 @@
-import { DataJson,  } from "./types";
+import { DataJson,  } from "./types/types";
 
 type ResolveFunction = (data:DataJson) => void;
 type RejectFunction = (error:Error) => void;
