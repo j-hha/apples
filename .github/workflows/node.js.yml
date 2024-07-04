@@ -23,4 +23,5 @@ jobs:
         cache: 'npm'
     - run: npm install --legacy-peer-deps
     - run: npm run build
+    - run: npm run eslint-all
     - run: npm test
