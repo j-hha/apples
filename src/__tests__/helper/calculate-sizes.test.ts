@@ -1,5 +1,5 @@
 import {describe, expect, test} from '@jest/globals';
-import { getRange, getHeight } from '../helper/calculate-sizes';
+import { getRange, getHeight } from '../../helper/calculate-sizes';
 
 describe('getRange function', () => {
     const data = [ 

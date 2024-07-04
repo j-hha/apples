@@ -1,5 +1,5 @@
 import { describe, test, expect } from "@jest/globals";
-import { getRandomColor } from "../helper/get-random-color";
+import { getRandomColor } from "../../helper/get-random-color";
 
 describe('getRandomColor function', () => {
     test('returns a string', () => {

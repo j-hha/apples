@@ -50,5 +50,6 @@ Charts as reusable web components - a practice project.
 ### commands
 - run webpack to build js bundle: `npm run build`
 - run linter to check ts or js: `npm run eslint-all`
+- run tests: `npm test`
 ## tbc ...
 

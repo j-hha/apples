@@ -1,5 +1,5 @@
 import { describe, test, expect } from "@jest/globals";
-import { getReadableNumber } from "../helper/get-readable-number";
+import { getReadableNumber } from "../../helper/get-readable-number";
 
 describe('getReadableNumber function', () => {
     describe('returns a string of the number it received as a parameter', () => {
@@ -44,19 +44,19 @@ describe('getReadableNumber function', () => {
             expect(getReadableNumber(arr.num)).toBe(arr.str);
         });
 
-        test.each(thousands)('turns thousands into a ...K-string', (arr) => {
+        test.each(thousands)('turns thousands into a ...K-string, or rounds corretly to next M', (arr) => {
             expect(getReadableNumber(arr.num)).toBe(arr.str);
         });
 
-        test.each(millions)('turns millions into a ...M-string', (arr) => {
+        test.each(millions)('turns millions into a ...M-string, or rounds corretly to next B', (arr) => {
             expect(getReadableNumber(arr.num)).toBe(arr.str);
         });
 
-        test.each(billions)('turns billions into a ...B-string', (arr) => {
+        test.each(billions)('turns billions into a ...B-string, or rounds corretly to next T', (arr) => {
             expect(getReadableNumber(arr.num)).toBe(arr.str);
         });
 
-        test.each(trillions)('turns trillions into a ...B-string', (arr) => {
+        test.each(trillions)('turns trillions into a ...T-string', (arr) => {
             expect(getReadableNumber(arr.num)).toBe(arr.str);
         });
 
