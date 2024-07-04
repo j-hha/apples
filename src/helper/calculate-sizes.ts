@@ -1,4 +1,4 @@
-import { StatsData } from "./types";
+import { StatsData } from "./types/types";
 
 export const getRange = (arr:Array<StatsData>):number => {
     const range:Array<number> = [];
